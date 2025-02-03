@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -49,6 +50,17 @@ class Calculator {
                 System.out.println("Operation Error!");
                 return;
         }
-        System.out.println(result);
+        output(String.valueOf(result));
+
     }
+    public static void output(String result) throws Exception {
+        try {
+            Files.writeString(Path.of("C:\\Users\\karam\\IdeaProjects\\Calculator\\src\\main\\java\\output1.txt"),result);
+        }
+        catch (IOException e){
+            System.out.println("Ошибка записи в файл" + e.getMessage());
+        }
+
+    }
+
 }
