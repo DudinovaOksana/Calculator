@@ -1,33 +1,48 @@
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.io.*;
 
 class Calculator {
     public static void main(String[] args) throws Exception{
+        String outputPath = "C:\\Users\\karam\\IdeaProjects\\Calculator\\src\\main\\java\\output1.txt";
         try {
-            Path path = Paths.get("C:\\Users\\karam\\IdeaProjects\\skyscraper\\src\\main\\java\\input.txt");
-            String content = Files.readString(path);
-            calculator(content);
+            FileWriter writer = new FileWriter(outputPath);
+            writer.close();
         }
+        catch (IOException e){
+            System.out.println("Ошибка записи в файл" + e.getMessage());
+        }
+        try {
+            String path = "C:\\Users\\karam\\IdeaProjects\\Calculator\\src\\main\\java\\input.txt";
+            BufferedReader reader = new BufferedReader(new FileReader(path));
+            String line;
+            while (true) {
+                line = reader.readLine();
+                if (line == null) { break;}
+                    System.out.println(line);
+                    String resultOfCalculator = calculator(line);
+                    output(outputPath, line, resultOfCalculator);
+            }
+            reader.close();}
         catch (IOException e){
             e.printStackTrace();
         }
+
     }
 
-    public static void calculator(String content) throws Exception {
+    public static String calculator(String line) throws Exception {
         double result = 0;
         double a=0;
         double b=0;
-        String[] arr = content.split(" ");
+        String[] arr = line.split(" ");
 
         try {
             a = Double.parseDouble(arr[0]);
             b = Double.parseDouble(arr[2]);
         } catch (Exception e) {
-            System.out.println("Error! Not number");
-            return;
+            return "Error! Not number";
+
         }
         switch (arr[1]){
             case "+":
@@ -41,26 +56,29 @@ class Calculator {
                 break;
             case "/":
                 if (b == 0) {
-                    System.out.println("Error! Division by zero");
-                    return;
+                    return "Error! Division by zero";
                 }
                 result = a / b;
                 break;
             default:
-                System.out.println("Operation Error!");
-                return;
+                return "Operation Error!";
         }
-        output(String.valueOf(result));
+        return String.valueOf(result);
 
     }
-    public static void output(String result) throws Exception {
+    public static void output(String path, String content,String result) throws Exception {
         try {
-            Files.writeString(Path.of("C:\\Users\\karam\\IdeaProjects\\Calculator\\src\\main\\java\\output1.txt"),result);
+            FileWriter writer = new FileWriter(path, true);
+            String writeOutput = content+" = "+result + "\n";
+            writer.write(writeOutput);
+            writer.close();
+//            BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
+//            writer.write(content+" = "+result);
+            System.out.println(content+" = "+result);
         }
+
         catch (IOException e){
             System.out.println("Ошибка записи в файл" + e.getMessage());
         }
-
     }
-
 }
