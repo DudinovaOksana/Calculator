@@ -1,0 +1,5 @@
+23 + 425 = 448.0
+35 + 15 = 50.0
+14 - f = Error! Not number
+15 / 0 = Error! Division by zero
+45 * 23 = 1035.0
