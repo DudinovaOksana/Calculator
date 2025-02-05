@@ -1,7 +1,4 @@
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 class Calculator {
     public static void main(String[] args) throws Exception{
@@ -20,7 +17,6 @@ class Calculator {
             while (true) {
                 line = reader.readLine();
                 if (line == null) { break;}
-                    System.out.println(line);
                     String resultOfCalculator = calculator(line);
                     output(outputPath, line, resultOfCalculator);
             }
@@ -72,8 +68,6 @@ class Calculator {
             String writeOutput = content+" = "+result + "\n";
             writer.write(writeOutput);
             writer.close();
-//            BufferedWriter writer = new BufferedWriter(new FileWriter(path, true));
-//            writer.write(content+" = "+result);
             System.out.println(content+" = "+result);
         }
 
